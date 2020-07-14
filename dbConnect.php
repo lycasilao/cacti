@@ -1,8 +1,8 @@
 <!--
 #--------------------------------------------------------------------------#
-# Filename        :  delete.php                                            #
+# Filename        :  dbConnect.php                                         #
 # Author          :  Lyka C. Casilao                                       #        
-# Last Modified   :  July 2, 2020                                          #
+# Last Modified   :  July 11, 2020                                         #
 # Honor Code      : This is my own work and I have not received any        #
 #                   unauthorized help in completing this. I have not       #
 #                   copied from my classmate, friend, nor any unauthorized #
@@ -13,32 +13,14 @@
 #--------------------------------------------------------------------------#
 -->
 
-<?php
-    $conn = new mysqli('localhost', 'lykacasilao', 'admin', 'cacti_database') ;
-    if ($conn->connect_error)
-        die("Connection Failed");
-?>
-
 <?php 
-	if (isset($_GET['delete'])) {
-		$id=$_GET['delete'];
-		$sql = "DELETE FROM products WHERE product_code=$id"; 
-		if (mysqli_query($conn, $sql)){
-			?>
-			<script>
-				alert('Successfully deleted.');
-				window.location.href='product_admin.php?username=admin';
-			</script>
-		  <?php 
-		} 
-		else{
-			?>
-			<script>
-				alert('Invalid.');
-				window.location.href='product_admin.php?username=admin';
-			</script>
-		  <?php 
-		}
-		mysqli_close ();
-	}
- ?>
+    // Connect with the database 
+    $db = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME); 
+
+    // Display error if failed to connect 
+    if ($db->connect_errno) { 
+        printf("Connect failed: %s\n", $db->connect_error); 
+
+    exit(); 
+
+ }

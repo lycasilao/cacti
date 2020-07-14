@@ -1,6 +1,6 @@
 <!--
 #--------------------------------------------------------------------------#
-# Filename        :  delete.php                                            #
+# Filename        :  loginadmin.php                                        #
 # Author          :  Lyka C. Casilao                                       #        
 # Last Modified   :  July 2, 2020                                          #
 # Honor Code      : This is my own work and I have not received any        #
@@ -14,31 +14,28 @@
 -->
 
 <?php
-    $conn = new mysqli('localhost', 'lykacasilao', 'admin', 'cacti_database') ;
-    if ($conn->connect_error)
-        die("Connection Failed");
-?>
+  if(isset($_POST['login'])!=""){
 
-<?php 
-	if (isset($_GET['delete'])) {
-		$id=$_GET['delete'];
-		$sql = "DELETE FROM products WHERE product_code=$id"; 
-		if (mysqli_query($conn, $sql)){
-			?>
-			<script>
-				alert('Successfully deleted.');
-				window.location.href='product_admin.php?username=admin';
-			</script>
-		  <?php 
-		} 
-		else{
-			?>
-			<script>
-				alert('Invalid.');
-				window.location.href='product_admin.php?username=admin';
-			</script>
-		  <?php 
-		}
-		mysqli_close ();
-	}
- ?>
+      $user = $_POST['username'];
+      $pass= $_POST['password'];
+
+        if ( $user == "admin"){
+            ?>
+            <script>
+              alert('Successfully Login.');
+              window.location.href='dashboard_admin.php?username=<?php echo $user ?>';
+            </script>
+          <?php 
+        } 
+        else{
+            ?>
+            <script>
+                alert('Invalid.');
+                window.location.href='index.php';
+            </script>
+          <?php 
+        }
+      mysqli_close ($conn);
+  }
+?>
+ 
